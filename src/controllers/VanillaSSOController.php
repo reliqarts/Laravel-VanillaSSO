@@ -1,13 +1,18 @@
 <?php
+
+namespace ReliQArts\VanillaSSO\Http\Controllers;
+
+use Auth;
+use Config;
+use App\Http\Controllers\Controller;
+use ReliQArts\VanillaSSO\SSOUser;
+use ReliQArts\VanillaSSO\VanillaSSO;
+
 /**
- * This file is part of Laravel-VanillaSSO for jsConnect
- * @author pdefreitas <pdefreitas@users.noreply.github.com>
- * @license GPLv2
+ *  VanillaSSOController
  */
-
-class VanillaSSOController extends \BaseController
+class VanillaSSOController extends Controller
 {
-
     /**
      * Produces jsonResponse.
      *
@@ -15,7 +20,7 @@ class VanillaSSOController extends \BaseController
      */
     public function jsonResponse()
     {
-        $user = Auth::getUser();
+        $user = Auth::user();
 
         //Change here whatever you need
         $ssoUser = new SSOUser();
@@ -23,11 +28,10 @@ class VanillaSSOController extends \BaseController
         $ssoUser->name = $user->username;
         $ssoUser->email = $user->email;
         $ssoUser->roles = $user->roles;
-        $ssoUser->profilepicture = "";
+        $ssoUser->profilePicture = str_replace('{user_id}', $user->id, Config::get('vanillasso.profile_pic_url'));
 
         $userInfo = $ssoUser->toArray();
 
-        return VanillaSSO::WriteJsConnect($userInfo, $_GET, true);
+        die(VanillaSSO::WriteJsConnect($userInfo, $_GET, true));
     }
-
 }

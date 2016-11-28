@@ -1,16 +1,16 @@
 <?php
-/**
- * This file is part of Laravel-VanillaSSO for jsConnect
- * @author pdefreitas <pdefreitas@users.noreply.github.com>
- * @license GPLv2
- */
 
+namespace ReliQArts\VanillaSSO;
+
+/**
+ *  SSOUser
+ */
 class SSOUser {
     public $id;
     public $name;
     public $email;
     public $roles;
-    public $profilepicture;
+    public $profilePicture;
 
     function __construct()
     {
@@ -18,19 +18,19 @@ class SSOUser {
         $this->id             = null;
         $this->name           = null;
         $this->roles          = null;
-        $this->profilepicture = "";
+        $this->profilePicture = "";
     }
 
     /**
      * @return array
      */
     function toArray() {
-        return array(
+        return [
             "uniqueid" => $this->id,
             "name"     => $this->name,
             "email"    => $this->email,
             "roles"    => $this->roles,
-            "photourl" => $this->profilepicture
-        );
+            "photourl" => $this->profilePicture
+        ];
     }
 }

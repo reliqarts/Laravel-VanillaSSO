@@ -1,11 +1,5 @@
 <?php
 /**
- * This file is part of Laravel-VanillaSSO for jsConnect
- * @author pdefreitas <pdefreitas@users.noreply.github.com>
- * @license GPLv2
- */
-
-/**
  * This file contains part of the client code for Vanilla jsConnect single sign on. It was adapted to support Laravel.
  * @author Todd Burry <todd@vanillaforums.com>
  * @version 1.3b
@@ -14,12 +8,16 @@
  * @link https://github.com/vanilla/jsConnectPHP/blob/master/functions.jsconnect.php
  */
 
-namespace Pdefreitas\VanillaSSO;
+namespace ReliQArts\VanillaSSO;
 
+use Log;
 use Config;
 
 define('JS_TIMEOUT', 24 * 60);
 
+/**
+ *  VanillaSSO
+ */
 class VanillaSSO
 {
 
@@ -81,6 +79,9 @@ class VanillaSSO
             $Result = array('name' => '', 'photourl' => '');
 
         $Json = json_encode($Result);
+
+        if (Config::get('vanillasso.debug', false)) 
+            Log::info($Json);
 
         if (isset($Request['callback']))
             return "{$Request['callback']}($Json)";

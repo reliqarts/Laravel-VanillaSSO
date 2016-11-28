@@ -1,26 +1,29 @@
 {
-    "name": "pdefreitas/vanillasso",
-    "description": "A way to connect your Laravel application into Vanilla Forum via jsConnect.",
+    "name": "reliqarts/vanillasso",
+    "description": "A way to connect your Laravel 5.* application into Vanilla Forum via jsConnect.",
     "license": "GPLv2",
     "authors": [
         {
-            "name": "pdefreitas",
-            "email": "pdefreitas@users.noreply.github.com"
+            "name": "reliq",
+            "email": "reliq@reliqarts.com"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "php": ">=5.6.4",
+        "illuminate/support": "5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6",
+        "orchestra/testbench": "~3.0"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations",
-            "src/controllers",
-            "src/models"
-        ],
-        "psr-0": {
-            "Pdefreitas\\VanillaSSO\\": "src/"
+        "psr-4": {
+            "ReliQArts\\VanillaSSO\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ]
+    }
 }
