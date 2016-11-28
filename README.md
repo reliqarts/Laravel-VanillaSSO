@@ -18,44 +18,38 @@ The package is availabe on Packagist https://packagist.org/packages/reliqarts/va
 ## Installation
 
 1. Install via composer; in console: 
-```
-composer require reliqarts/guided-image
-``` 
-or require in *composer.json*:
-```js
-{
-    "require": {
-        "reliqarts/vanillasso": "dev-master"
+    ```
+    composer require reliqarts/guided-image
+    ``` 
+    or require in *composer.json*:
+    ```js
+    {
+        "require": {
+            "reliqarts/vanillasso": "dev-master"
+        }
     }
-}
-```
-then run `composer update` in your terminal to pull it in.
+    ```
+    then run `composer update` in your terminal to pull it in.
 
 2. Edit the providers array in app.php (app/config/app.php)
 
-```php
-'providers' => [
-...
- 'ReliQArts\VanillaSSO\VanillaSSOServiceProvider',
-...
-],
-```
+    ```php
+    'providers' => [
+        // ...
+        'ReliQArts\VanillaSSO\VanillaSSOServiceProvider',
+        // ...
+    ],
+    ```
 
 3. Publish the vanillasso.php config file to make it accessible in app/config/packages/reliqarts/vanillasso/vanillasso.php
 
-```
- php artisan config:publish reliqarts/vanillasso
-```
+    ```
+     php artisan config:publish reliqarts/vanillasso
+    ```
 
 ### Routes
 
-Here is an example of a route that you may use (app/routes.php):
-```php
-Route::group(['before' => 'auth'], function()
-{
-    Route::get('/jsonp', 'VanillaSSOController@jsonResponse');
-});
-```
+An endpoint is automatically set based on your config. Default endpoint is: `login/forum`.
 
 ### Configuration
 
