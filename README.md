@@ -1,5 +1,4 @@
 # Laravel-VanillaSSO 
-## for Laravel ^5.*
 
 This package allows you to use jsConnect of Vanilla Forums in your Laravel 5 application and is a fork of [pdefreitas/vanillasso](https://github.com/pdefreitas/Laravel-VanillaSSO).
 
