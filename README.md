@@ -4,10 +4,10 @@ This package allows you to use jsConnect of Vanilla Forums in your Laravel 5 app
 
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-red.svg?style=flat-square)](http://laravel.com)
 ![Build Status](https://img.shields.io/circleci/project/reliqarts/laravel-vanilla-sso.svg?style=flat-square)
-[![StyleCI](https://styleci.io/repos/71434979/shield?branch=master)](https://styleci.io/repos/71434979)
-[![License](https://poser.pugx.org/reliqarts/vanilla-sso/license?format=flat-square)](https://packagist.org/packages/reliqarts/vanilla-sso)
-[![Latest Stable Version](https://poser.pugx.org/reliqarts/vanilla-sso/version?format=flat-square)](https://packagist.org/packages/reliqarts/vanilla-sso)
-[![Latest Unstable Version](https://poser.pugx.org/reliqarts/vanilla-sso/v/unstable?format=flat-square)](//packagist.org/packages/reliqarts/vanilla-sso)
+[![StyleCI](https://styleci.io/repos/74924621/shield?branch=master)](https://styleci.io/repos/74924621)
+[![License](https://poser.pugx.org/reliqarts/vanillasso/license?format=flat-square)](https://packagist.org/packages/reliqarts/vanillasso)
+[![Latest Stable Version](https://poser.pugx.org/reliqarts/vanillasso/version?format=flat-square)](https://packagist.org/packages/reliqarts/vanillasso)
+[![Latest Unstable Version](https://poser.pugx.org/reliqarts/vanillasso/v/unstable?format=flat-square)](//packagist.org/packages/reliqarts/vanillasso)
 
 &nbsp;
 
