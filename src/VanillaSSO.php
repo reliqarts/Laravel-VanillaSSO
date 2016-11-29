@@ -1,17 +1,20 @@
 <?php
 /**
  * This file contains part of the client code for Vanilla jsConnect single sign on. It was adapted to support Laravel.
+ *
  * @author Todd Burry <todd@vanillaforums.com>
+ *
  * @version 1.3b
+ *
  * @copyright Copyright 2008, 2009 Vanilla Forums Inc.
  * @license http://www.opensource.org/licenses/gpl-2.0.php GPLv2
+ *
  * @link https://github.com/vanilla/jsConnectPHP/blob/master/functions.jsconnect.php
  */
-
 namespace ReliQArts\VanillaSSO;
 
-use Log;
 use Config;
+use Log;
 
 define('JS_TIMEOUT', 24 * 60);
 
@@ -22,14 +25,17 @@ class VanillaSSO
 {
     /**
      * Write the jsConnect string for single sign on.
-     * @param array $User An array containing information about the currently signed on user. If no user is signed in then this should be an empty array.
-     * @param array $Request An array of the $_GET request.
-     * @param string|bool $Secure Whether or not to check for security. This is one of these values.
-     *  - true: Check for security and sign the response with an md5 hash.
-     *  - false: Don't check for security, but sign the response with an md5 hash.
-     *  - string: Check for security and sign the response with the given hash algorithm. See hash_algos() for what your server can support.
-     *  - null: Don't check for security and don't sign the response.
+     *
+     * @param array       $User    An array containing information about the currently signed on user. If no user is signed in then this should be an empty array.
+     * @param array       $Request An array of the $_GET request.
+     * @param string|bool $Secure  Whether or not to check for security. This is one of these values.
+     *                             - true: Check for security and sign the response with an md5 hash.
+     *                             - false: Don't check for security, but sign the response with an md5 hash.
+     *                             - string: Check for security and sign the response with the given hash algorithm. See hash_algos() for what your server can support.
+     *                             - null: Don't check for security and don't sign the response.
+     *
      * @since 1.1b Added the ability to provide a hash algorithm to $Secure.
+     *
      * @return string JSON response formatted.
      */
     public static function WriteJsConnect($User, $Request, $Secure = true)
@@ -117,9 +123,12 @@ class VanillaSSO
 
     /**
      * Return the hash of a string.
-     * @param string $String The string to hash.
+     *
+     * @param string      $String The string to hash.
      * @param string|bool $Secure The hash algorithm to use. TRUE means md5.
+     *
      * @return string
+     *
      * @since 1.1b
      */
     protected static function JsHash($String, $Secure = true)
@@ -148,9 +157,10 @@ class VanillaSSO
     /**
      * Generate an SSO string suitible for passing in the url for embedded SSO.
      *
-     * @param array $User The user to sso.
+     * @param array  $User     The user to sso.
      * @param string $ClientID Your client ID.
-     * @param string $Secret Your secret.
+     * @param string $Secret   Your secret.
+     *
      * @return string
      */
     protected static function JsSSOString($User, $ClientID, $Secret)

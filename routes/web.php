@@ -14,6 +14,6 @@ Route::group(Config::get('vanillasso.routes.bindings', [
 ]), function () {
     Route::get(Config::get('vanillasso.endpoint', 'login/forum'), [
             'uses' => 'ReliQArts\VanillaSSO\Http\Controllers\VanillaSSOController@jsonResponse',
-            'as' => 'vanillasso',
+            'as'   => 'vanillasso',
     ]);
 });
