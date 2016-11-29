@@ -9,7 +9,7 @@ use ReliQArts\VanillaSSO\SSOUser;
 use ReliQArts\VanillaSSO\VanillaSSO;
 
 /**
- *  VanillaSSOController
+ *  VanillaSSOController.
  */
 class VanillaSSOController extends Controller
 {

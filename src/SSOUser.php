@@ -3,34 +3,36 @@
 namespace ReliQArts\VanillaSSO;
 
 /**
- *  SSOUser
+ *  SSOUser.
  */
-class SSOUser {
+class SSOUser
+{
     public $id;
     public $name;
     public $email;
     public $roles;
     public $profilePicture;
 
-    function __construct()
+    public function __construct()
     {
-        $this->email          = null;
-        $this->id             = null;
-        $this->name           = null;
-        $this->roles          = null;
-        $this->profilePicture = "";
+        $this->email = null;
+        $this->id = null;
+        $this->name = null;
+        $this->roles = null;
+        $this->profilePicture = '';
     }
 
     /**
      * @return array
      */
-    function toArray() {
+    public function toArray()
+    {
         return [
-            "uniqueid" => $this->id,
-            "name"     => $this->name,
-            "email"    => $this->email,
-            "roles"    => $this->roles,
-            "photourl" => $this->profilePicture
+            'uniqueid' => $this->id,
+            'name'     => $this->name,
+            'email'    => $this->email,
+            'roles'    => $this->roles,
+            'photourl' => $this->profilePicture,
         ];
     }
 }

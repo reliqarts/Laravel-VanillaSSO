@@ -2,16 +2,16 @@
 
 return [
     // The string client ID that you set up in the jsConnect settings page.
-    "client_id" => "",
+    'client_id' => '',
 
     // The string secred that you set up in the jsConnect settings page.
-    "secret" => "",
+    'secret' => '',
 
     // Endpoint
-    "endpoint" => "login/forum",
+    'endpoint' => 'login/forum',
 
     // User profile pic url.
-    "profile_pic_url" => "http://mysite.dev/profile/pic/{user_id}",
+    'profile_pic_url' => 'http://mysite.dev/profile/pic/{user_id}',
 
     // Route related options.
     'routes' => [
@@ -19,11 +19,11 @@ return [
         'bindings' => [
             'middleware' => [
                 'web',
-                'auth',
-            ]
-        ]
+                // 'auth',
+            ],
+        ],
     ],
 
     // debug mode?
-    "debug" => false,
+    'debug' => false,
 ];

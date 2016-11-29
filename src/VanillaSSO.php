@@ -16,11 +16,10 @@ use Config;
 define('JS_TIMEOUT', 24 * 60);
 
 /**
- *  VanillaSSO
+ *  VanillaSSO.
  */
 class VanillaSSO
 {
-
     /**
      * Write the jsConnect string for single sign on.
      * @param array $User An array containing information about the currently signed on user. If no user is signed in then this should be an empty array.
@@ -33,79 +32,83 @@ class VanillaSSO
      * @since 1.1b Added the ability to provide a hash algorithm to $Secure.
      * @return string JSON response formatted.
      */
-    public static function WriteJsConnect($User, $Request, $Secure = TRUE)
+    public static function WriteJsConnect($User, $Request, $Secure = true)
     {
         $User = array_change_key_case($User);
-        $ClientID = Config::get("vanillasso.client_id");
-        $Secret = Config::get("vanillasso.secret");
+        $ClientID = Config::get('vanillasso.client_id');
+        $Secret = Config::get('vanillasso.secret');
 
         // Error checking.
         if ($Secure) {
             // Check the client.
-            if (!isset($Request['client_id']))
-                $Error = array('error' => 'invalid_request', 'message' => 'The client_id parameter is missing.');
-            elseif ($Request['client_id'] != $ClientID)
-                $Error = array('error' => 'invalid_client', 'message' => "Unknown client {$Request['client_id']}.");
-            elseif (!isset($Request['timestamp']) && !isset($Request['signature'])) {
+            if (!isset($Request['client_id'])) {
+                $Error = ['error' => 'invalid_request', 'message' => 'The client_id parameter is missing.'];
+            } elseif ($Request['client_id'] != $ClientID) {
+                $Error = ['error' => 'invalid_client', 'message' => "Unknown client {$Request['client_id']}."];
+            } elseif (!isset($Request['timestamp']) && !isset($Request['signature'])) {
                 if (is_array($User) && count($User) > 0) {
                     // This isn't really an error, but we are just going to return public information when no signature is sent.
-                    $Error = array('name' => $User['name'], 'photourl' => @$User['photourl']);
+                    $Error = ['name' => $User['name'], 'photourl' => @$User['photourl']];
                 } else {
-                    $Error = array('name' => '', 'photourl' => '');
+                    $Error = ['name' => '', 'photourl' => ''];
                 }
-            } elseif (!isset($Request['timestamp']) || !is_numeric($Request['timestamp']))
-                $Error = array('error' => 'invalid_request', 'message' => 'The timestamp parameter is missing or invalid.');
-            elseif (!isset($Request['signature']))
-                $Error = array('error' => 'invalid_request', 'message' => 'Missing  signature parameter.');
-            elseif (($Diff = abs($Request['timestamp'] - self::JsTimestamp())) > JS_TIMEOUT)
-                $Error = array('error' => 'invalid_request', 'message' => 'The timestamp is invalid.');
-            else {
+            } elseif (!isset($Request['timestamp']) || !is_numeric($Request['timestamp'])) {
+                $Error = ['error' => 'invalid_request', 'message' => 'The timestamp parameter is missing or invalid.'];
+            } elseif (!isset($Request['signature'])) {
+                $Error = ['error' => 'invalid_request', 'message' => 'Missing  signature parameter.'];
+            } elseif (($Diff = abs($Request['timestamp'] - self::JsTimestamp())) > JS_TIMEOUT) {
+                $Error = ['error' => 'invalid_request', 'message' => 'The timestamp is invalid.'];
+            } else {
                 // Make sure the timestamp hasn't timed out.
-                $Signature = self::JsHash($Request['timestamp'] . $Secret, $Secure);
-                if ($Signature != $Request['signature'])
-                    $Error = array('error' => 'access_denied', 'message' => 'Signature invalid.');
+                $Signature = self::JsHash($Request['timestamp'].$Secret, $Secure);
+                if ($Signature != $Request['signature']) {
+                    $Error = ['error' => 'access_denied', 'message' => 'Signature invalid.'];
+                }
             }
         }
 
-        if (isset($Error))
+        if (isset($Error)) {
             $Result = $Error;
-        elseif (is_array($User) && count($User) > 0) {
-            if ($Secure === NULL) {
+        } elseif (is_array($User) && count($User) > 0) {
+            if ($Secure === null) {
                 $Result = $User;
             } else {
-                $Result = self::SignJsConnect($User, $ClientID, $Secret, $Secure, TRUE);
+                $Result = self::SignJsConnect($User, $ClientID, $Secret, $Secure, true);
             }
-        } else
-            $Result = array('name' => '', 'photourl' => '');
+        } else {
+            $Result = ['name' => '', 'photourl' => ''];
+        }
 
         $Json = json_encode($Result);
 
-        if (Config::get('vanillasso.debug', false)) 
+        if (Config::get('vanillasso.debug', false)) {
             Log::info($Json);
+        }
 
-        if (isset($Request['callback']))
+        if (isset($Request['callback'])) {
             return "{$Request['callback']}($Json)";
-        else
+        } else {
             return $Json;
+        }
     }
 
-    protected static function SignJsConnect($Data, $ClientID, $Secret, $HashType, $ReturnData = FALSE)
+    protected static function SignJsConnect($Data, $ClientID, $Secret, $HashType, $ReturnData = false)
     {
         $Data = array_change_key_case($Data);
         ksort($Data);
 
         foreach ($Data as $Key => $Value) {
-            if ($Value === NULL)
+            if ($Value === null) {
                 $Data[$Key] = '';
+            }
         }
 
-        $String = http_build_query($Data, NULL, '&');
-//   echo "$String\n";
-        $Signature = self::JsHash($String . $Secret, $HashType);
+        $String = http_build_query($Data, null, '&');
+        $Signature = self::JsHash($String.$Secret, $HashType);
         if ($ReturnData) {
             $Data['client_id'] = $ClientID;
             $Data['signature'] = $Signature;
-//      $Data['string'] = $String;
+
             return $Data;
         } else {
             return $Signature;
@@ -119,17 +122,18 @@ class VanillaSSO
      * @return string
      * @since 1.1b
      */
-    protected static function JsHash($String, $Secure = TRUE)
+    protected static function JsHash($String, $Secure = true)
     {
-        if ($Secure === TRUE)
+        if ($Secure === true) {
             $Secure = 'md5';
+        }
 
         switch ($Secure) {
             case 'sha1':
                 return sha1($String);
                 break;
             case 'md5':
-            case FALSE:
+            case false:
                 return md5($String);
             default:
                 return hash($Secure, $String);
@@ -151,14 +155,16 @@ class VanillaSSO
      */
     protected static function JsSSOString($User, $ClientID, $Secret)
     {
-        if (!isset($User['client_id']))
+        if (!isset($User['client_id'])) {
             $User['client_id'] = $ClientID;
+        }
 
         $String = base64_encode(json_encode($User));
         $Timestamp = time();
         $Hash = hash_hmac('sha1', "$String $Timestamp", $Secret);
 
         $Result = "$String $Hash $Timestamp hmacsha1";
+
         return $Result;
     }
 }

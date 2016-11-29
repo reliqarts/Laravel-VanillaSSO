@@ -63,7 +63,7 @@ class VanillaSSOServiceProvider extends ServiceProvider
         // register routes
         if (!$this->app->routesAreCached()) {
             $this->registerRoutes();
-        }   
+        }
 
         // publish assets
         $this->publishAssets();
@@ -74,7 +74,7 @@ class VanillaSSOServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() 
+    public function register()
     {
         $this->registerConfig();
     }
