@@ -32,6 +32,6 @@ class VanillaSSOController extends Controller
 
         $userInfo = $ssoUser->toArray();
 
-        die(VanillaSSO::WriteJsConnect($userInfo, $_GET, true));
+        die(VanillaSSO::WriteJsConnect($userInfo, $_GET, Config::get('vanillasso.secure', true)));
     }
 }

@@ -111,6 +111,12 @@ class VanillaSSO
 
         $String = http_build_query($Data, null, '&');
         $Signature = self::JsHash($String.$Secret, $HashType);
+
+        if (Config::get('vanillasso.debug', false)) {
+            // Log::info($Data);
+            Log::info($String);
+            Log::info($Signature);
+        }
         if ($ReturnData) {
             $Data['client_id'] = $ClientID;
             $Data['signature'] = $Signature;
