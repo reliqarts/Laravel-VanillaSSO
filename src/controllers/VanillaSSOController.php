@@ -2,9 +2,9 @@
 
 namespace ReliQArts\VanillaSSO\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Auth;
 use Config;
-use App\Http\Controllers\Controller;
 use ReliQArts\VanillaSSO\SSOUser;
 use ReliQArts\VanillaSSO\VanillaSSO;
 
