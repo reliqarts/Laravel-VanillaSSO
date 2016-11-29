@@ -61,7 +61,7 @@ class VanillaSSOServiceProvider extends ServiceProvider
     public function boot()
     {
         // register routes
-        if (!$this->app->routesAreCached()) {
+        if (! $this->app->routesAreCached()) {
             $this->registerRoutes();
         }
 

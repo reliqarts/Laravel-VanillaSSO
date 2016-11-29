@@ -47,20 +47,20 @@ class VanillaSSO
         // Error checking.
         if ($Secure) {
             // Check the client.
-            if (!isset($Request['client_id'])) {
+            if (! isset($Request['client_id'])) {
                 $Error = ['error' => 'invalid_request', 'message' => 'The client_id parameter is missing.'];
             } elseif ($Request['client_id'] != $ClientID) {
                 $Error = ['error' => 'invalid_client', 'message' => "Unknown client {$Request['client_id']}."];
-            } elseif (!isset($Request['timestamp']) && !isset($Request['signature'])) {
+            } elseif (! isset($Request['timestamp']) && ! isset($Request['signature'])) {
                 if (is_array($User) && count($User) > 0) {
                     // This isn't really an error, but we are just going to return public information when no signature is sent.
                     $Error = ['name' => $User['name'], 'photourl' => @$User['photourl']];
                 } else {
                     $Error = ['name' => '', 'photourl' => ''];
                 }
-            } elseif (!isset($Request['timestamp']) || !is_numeric($Request['timestamp'])) {
+            } elseif (! isset($Request['timestamp']) || ! is_numeric($Request['timestamp'])) {
                 $Error = ['error' => 'invalid_request', 'message' => 'The timestamp parameter is missing or invalid.'];
-            } elseif (!isset($Request['signature'])) {
+            } elseif (! isset($Request['signature'])) {
                 $Error = ['error' => 'invalid_request', 'message' => 'Missing  signature parameter.'];
             } elseif (($Diff = abs($Request['timestamp'] - self::JsTimestamp())) > JS_TIMEOUT) {
                 $Error = ['error' => 'invalid_request', 'message' => 'The timestamp is invalid.'];
@@ -165,7 +165,7 @@ class VanillaSSO
      */
     protected static function JsSSOString($User, $ClientID, $Secret)
     {
-        if (!isset($User['client_id'])) {
+        if (! isset($User['client_id'])) {
             $User['client_id'] = $ClientID;
         }
 
