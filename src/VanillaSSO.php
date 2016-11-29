@@ -113,7 +113,6 @@ class VanillaSSO
         $Signature = self::JsHash($String.$Secret, $HashType);
 
         if (Config::get('vanillasso.debug', false)) {
-            // Log::info($Data);
             Log::info($String);
             Log::info($Signature);
         }
